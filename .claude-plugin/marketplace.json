@@ -1,0 +1,11 @@
+{
+  "name": "greybeard",
+  "owner": { "name": "Alex Punnen" },
+  "plugins": [
+    {
+      "name": "greybeard",
+      "source": "./",
+      "description": "An architect skill for coding agents: a viability gate before designing, architecture before user stories, right-sized and open for extension."
+    }
+  ]
+}

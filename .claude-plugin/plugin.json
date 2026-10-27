@@ -1,0 +1,7 @@
+{
+  "name": "greybeard",
+  "description": "An architect skill for coding agents: a viability gate before designing, architecture before user stories, right-sized and open for extension, with a committed decision record.",
+  "version": "0.1.0",
+  "author": { "name": "Alex Punnen" },
+  "license": "MIT"
+}
