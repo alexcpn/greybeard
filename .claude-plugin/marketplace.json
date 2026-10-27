@@ -1,11 +1,26 @@
 {
   "name": "greybeard",
-  "owner": { "name": "Alex Punnen" },
+  "owner": {
+    "name": "Alex Punnen"
+  },
   "plugins": [
     {
       "name": "greybeard",
       "source": "./",
-      "description": "An architect skill for coding agents: a viability gate before designing, architecture before user stories, right-sized and open for extension."
+      "description": "No more AI slop. Architect skill for coding agents (Claude Code, Codex, opencode): decides if it should be built at all, then designs architecture-first with SOLID, open/closed and Unix philosophy. Design only.",
+      "keywords": [
+        "ai-slop",
+        "software-architecture",
+        "system-design",
+        "solid",
+        "open-closed-principle",
+        "unix-philosophy",
+        "architecture-decision-records",
+        "agent-skills",
+        "claude-code",
+        "codex",
+        "opencode"
+      ]
     }
   ]
 }

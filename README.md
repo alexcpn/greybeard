@@ -1,4 +1,4 @@
-# greybeard
+# greybeard: NO MORE AI SLOP
 
 ```
                  .-""""""-.
@@ -16,12 +16,26 @@
                   '~~~~~~'
 ```
 
-*He has been burnt before. He asks whether you should build it at all.*
+**No more AI slop.** Coding agents have made code nearly free. The new failure is not
+"we could not build it" but "we built a pile nobody can run, extend or trust": services that
+drift between patterns, utility packages that couple everything, POCs that quietly become
+products without persistence, auth or failure handling, and whole systems that should never
+have been started.
 
-An architect skill for coding agents (Claude Code, Codex, opencode and any agent that reads
-`SKILL.md`). Agents now write code faster than anyone can review it, so the bottleneck is the
-design: the decisions made before the first line, and whether there should be a first line at
-all. Greybeard puts a seasoned architect in the room for that part.
+Greybeard is an architect skill for coding agents (Claude Code, Codex, opencode, Gemini CLI and
+any agent that reads `SKILL.md`). It works *before* the code:
+
+1. **Should this exist?** It weighs build-vs-reuse, the production bill and who will own it,
+   and **warns and stops** if the result would be AI slop or cost more than it is worth.
+2. **Architecture first.** It designs the whole system, then fits every user story into it,
+   instead of patching story by story.
+3. **SOLID, open/closed, Unix philosophy.** Single responsibilities, dependency inversion at
+   boundaries, extension points on the axes that will really change, small composable parts.
+4. **Right-sized.** Not over-engineered, not under-engineered: POCs become products, and
+   versioning, performance and failure semantics are hard to bolt on later.
+
+It is **design only**: it writes no implementation code. It produces a verdict, a design and a
+decision record that implementation must then follow.
 
 ## What it does
 
@@ -34,10 +48,6 @@ all. Greybeard puts a seasoned architect in the room for that part.
 | 4. Right-size | Build in now what is cheap today and painful later (versioning, complete cache keys, identity, restart survival, idempotency, failure semantics, observability). Defer the rest, with a trigger. |
 | 5. Self-review | Run the checklist in `references/checklist.md`. |
 | 6. Deliverables | `design.md`, a committed `decisions.json`, and an `ARCHITECTURE.md` for coding agents that records **why**, not just what. |
-
-For implementation it hands off to [ponytail](https://github.com/DietrichGebert/ponytail):
-greybeard decides where code goes and which seams exist; ponytail keeps the code inside them
-small. Ponytail trims code, never architecture.
 
 ## Install
 

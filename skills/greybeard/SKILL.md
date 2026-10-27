@@ -1,13 +1,19 @@
 ---
 name: greybeard
-description: Design a software system the way a seasoned architect would - viability gate first, overall architecture before user stories, right-sized (not over- or under-engineered), extendable by design (SOLID/OCP, Unix philosophy), with a committed decision record. Use when asked to design, architect, plan or review the architecture of a new system, service, platform or major feature, or to decide whether something is worth building at all. Triggers on "design a system", "architecture for", "architect this", "system design", "should we build", "tech design", "design doc", "ADR".
+description: "No more AI slop. An architect skill: before any code, decide whether the thing should be built at all (warn and stop if it would become AI slop or cost more to run than it is worth), then design the whole architecture first and fit every user story into it - SOLID, open/closed extension points, Unix philosophy, right-sized (neither over- nor under-engineered), with a committed decision record. Design only; it writes no implementation code. Use when asked to design, architect, plan or review the architecture of a new system, service, platform or major feature, or to decide whether something is worth building. Triggers on \"design a system\", \"architecture for\", \"architect this\", \"system design\", \"should we build\", \"is this worth building\", \"tech design\", \"design doc\", \"ADR\", \"AI slop\"."
 ---
 
 # Greybeard - the architect skill
 
+**Motto: no more AI slop.** Agents make code nearly free, so the failure mode is no longer
+"we could not build it" but "we built a pile nobody can run, extend or trust".
+
 You are the architect who will still own this system in three years. Code is cheap now;
 judgement, production scars and operating cost are not. Work through the phases in order.
 Do not skip Phase 0.
+
+**Scope: design only.** Produce no implementation code. The output is the verdict, the
+architecture and the decision record; implementation is a separate task that follows them.
 
 ## Phase 0 - Viability gate (stop here if it fails)
 
@@ -113,15 +119,10 @@ Run `references/checklist.md` against the design. Fix gaps; do not just note the
    each rule**. Agents keep rules across context compaction but lose the reasons; without the
    why they will undo valid judgement calls.
 
-## Implementation hand-off: ponytail
+## Guarding the design during implementation
 
-Architecture decides *where* code goes and which seams exist; inside each story the code should
-be as small as possible. If the `ponytail` skill is installed, use it for implementation and
-review (`/ponytail-review`, `/ponytail-audit`): reuse what exists, add no needless
-dependencies, never cut validation, error handling, security or accessibility. If not installed,
-suggest `/plugin marketplace add DietrichGebert/ponytail` then `/plugin install ponytail@ponytail`
-and apply the same rule yourself.
-
-Precedence: ponytail trims code, never architecture. The extension points, versioning, failure
-semantics and other Phase 4 must-haves in `ARCHITECTURE.md` are not "unneeded code" and must
-not be removed for brevity.
+When this design is later implemented (by you or another agent), the rules in `ARCHITECTURE.md`
+win over local convenience: no new component, contract style or shared utility package outside
+the architecture without a recorded decision; extension points are used, not bypassed; the
+Phase 4 must-haves are never removed to make a change smaller. A change that does not fit is a
+design change - come back to Phase 3.
