@@ -58,9 +58,23 @@ Claude Code:
 /plugin install greybeard@greybeard
 ```
 
-Any other agent: copy `skills/greybeard/` into its skills folder (for example
-`~/.claude/skills/`, `.agents/skills/` or `.opencode/skills/`), or tell it to read
-`skills/greybeard/SKILL.md`.
+Any agent (Claude Code, Codex, opencode, Cursor, Gemini CLI and more), using the
+[skills CLI](https://github.com/vercel-labs/skills):
+
+```
+npx skills add alexcpn/greybeard          # this project; prompts for which agents
+npx skills add alexcpn/greybeard -g       # global, for all your projects
+npx skills add alexcpn/greybeard -a codex -a opencode -y   # pick agents, no prompts
+```
+
+`npx skills update` pulls new versions later.
+
+No Node? Copy the folder into your agent's skills directory:
+
+```
+git clone --depth 1 https://github.com/alexcpn/greybeard /tmp/greybeard
+cp -r /tmp/greybeard/skills/greybeard ~/.claude/skills/    # or .agents/skills/, .opencode/skills/
+```
 
 Then ask: *"Design a system for ..."*, *"Should we build ...?"*, or *"Review this architecture"*.
 

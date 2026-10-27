@@ -11,4 +11,5 @@
 ## Install
 
 - Claude Code: `/plugin marketplace add alexcpn/greybeard` then `/plugin install greybeard@greybeard`
-- Other agents: copy `skills/greybeard/` into the agent's skills folder (e.g. `~/.claude/skills/`, `.agents/skills/`, `.opencode/skills/`)
+- Any agent: `npx skills add alexcpn/greybeard` (add `-g` for global, `-a <agent>` to pick agents)
+- Without Node: copy `skills/greybeard/` into the agent's skills folder (e.g. `~/.claude/skills/`, `.agents/skills/`, `.opencode/skills/`)
