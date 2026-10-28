@@ -80,16 +80,30 @@ Then ask: *"Design a system for ..."*, *"Should we build ...?"*, or *"Review thi
 
 ## How it was tested (with vs without, v0.2)
 
-**Method.** Each task is a design brief built from a real system that had already been built
-and run: it states facts (hardware, load, team, user stories) but not decisions. A hidden
-reference design and that system's known production weaknesses (from its backlog and fix
-commits) define a levelled rubric: 9 weighted dimensions, each scored 0-4. Level 4 means the
-design avoids the known weakness, not just names the topic. A second turn sends a change
-request taken from a real incident (for example, a restart that lost build history), and the
-diff is graded on whether the design absorbs it without rework. Penalties apply for
-over-building and for inconsistent decisions. Three judges from different vendors (Claude, GPT,
-Gemini) grade blind to the condition, and the score is the median. A pair is compared only on
-judges that scored both sides.
+**In plain words.** Think of it as an exam for AI architects, where the answer key comes from
+systems that were already built and had already failed in production.
+
+1. **Pick real systems with real scars.** Each task comes from a system that was actually built
+   and run, so its weak spots are known from its bug backlog and fix history. For example, a
+   restart wiped all build history, or a cache returned stale results.
+2. **Write the brief, hide the answers.** The AI gets only the facts the original team had:
+   hardware, load, team size, budget and user stories. It does not see how the system was
+   really built or what went wrong.
+3. **Ask for a design, twice.** First the AI writes a design document. Then it gets a change
+   request based on a real incident ("the server restarted and lost everything; fix it") and
+   updates its design. A good design absorbs the change; a weak one needs rework.
+4. **Grade against the known scars.** Each task has 9 topics (sizing, data, failure handling,
+   security, extensibility and so on), each scored 0-4. Mentioning a topic earns little; the top
+   score needs a design that would have avoided the real problem. Points come off for building
+   far more than the facts justify, and for decisions that contradict each other.
+5. **Use three graders from different companies.** Claude, GPT and Gemini each grade every
+   design independently, and the middle score counts. The graders are told to ignore the skill's
+   own labels and checklists, and to grade only the design itself.
+6. **Run with and without the skill.** Each model does each task twice, once plain and once
+   with greybeard, so the change between the two runs is the skill's effect.
+
+The scores are out of 100. "Change" below is how much better or worse the design was with the
+skill, as a percentage of the score without it.
 
 **Tasks:**
 - `ci`: agent-heavy CI for 15 repos on 5 VMs with 2 engineers, from
