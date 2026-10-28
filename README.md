@@ -20,8 +20,11 @@ Coding agents made code nearly free. The new failure is a system nobody can run,
 trust. Greybeard is an architect skill for coding agents (Claude Code, Codex, opencode, Gemini
 CLI, any agent that reads `SKILL.md`). It works before the code:
 
-1. **Should this exist?** Build vs reuse, the production bill, the owner. It warns and stops
-   if the result would be slop or cost more than it is worth.
+![Before you build it, pass three gates: Is it needed? Is it worth the time? Will someone run it?](docs/three-gates.png)
+
+
+1. **Three gates before any code.** Is it needed? Is it worth the time? Will someone run it?
+   Fail one and it warns you and stops.
 2. **Architecture first.** It designs the whole system, then fits every user story into it.
 3. **SOLID, open/closed, Unix philosophy.** It puts extension points only on the axes that will
    really change.

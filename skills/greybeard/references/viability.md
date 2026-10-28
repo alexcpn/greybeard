@@ -1,17 +1,28 @@
-# Viability gate
+# The three gates
 
-Answer briefly, in writing, before any design.
+Answer briefly, in writing, before any design. Each gate is a yes/no question; a "no" means
+STOP or GO, NARROWED.
 
-1. **Problem and user.** Who uses this, for what, and how is it done today?
-2. **Build vs reuse.** Name the best existing product, library, managed service or OS feature.
-   If it covers 80% of the need, the design is "integrate X", not "build X".
-3. **Production bill.** What it takes to run this for real, not to demo it: persistence across
-   restarts, identity and auth, retries and recovery, upgrades and migrations, retention,
-   backups, on-call, security patching.
-4. **Owner.** Who runs it after launch, and does the team size match the operational load?
-5. **Slop risk.** Will agents build it without a stable architecture, an owner or a way to
-   verify behaviour? Will it compete with mature software that has years of production fixes it
-   cannot reproduce?
+## Gate 1: Is it needed?
+
+- **Problem and user.** Who uses this, for what, and how is it done today?
+- **Build vs reuse.** Name the best existing product, library, managed service or OS feature.
+  If it covers 80% of the need, the design is "integrate X", not "build X".
+
+## Gate 2: Is it worth the time?
+
+- Fill in the cost table below. Count the people-months for one person to reach the parity
+  users will expect, not a demo.
+- **Slop risk.** Will agents build it without a stable architecture, an owner or a way to
+  verify behaviour? Will it compete with mature software that has years of production fixes it
+  cannot reproduce?
+
+## Gate 3: Will someone run it?
+
+- **Production bill.** What it takes to run this for real, not to demo it: persistence across
+  restarts, identity and auth, retries and recovery, upgrades and migrations, retention,
+  backups, on-call, security patching.
+- **Owner.** Who runs it after launch, and does the team size match the operational load?
 
 ## Cost table
 
@@ -31,7 +42,7 @@ GO, NARROWED.
 
 ## Verdicts
 
-- **GO**: the need is specific to this business, or no existing option meets a stated
+- **GO**: all three gates pass. The need is specific to this business, or no existing option meets a stated
   requirement, and the team can carry the production bill.
 - **GO, NARROWED**: build only the part nothing else covers, usually an adapter, plugin or
   thin layer on the reused product. State the reduced scope.

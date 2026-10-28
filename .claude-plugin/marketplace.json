@@ -7,7 +7,7 @@
     {
       "name": "greybeard",
       "source": "./",
-      "description": "No more AI slop. Architect skill for coding agents (Claude Code, Codex, opencode): decides if it should be built at all, then designs architecture-first with SOLID, open/closed and Unix philosophy. Design only.",
+      "description": "No more AI slop. Architect skill for coding agents (Claude Code, Codex, opencode): passes three gates (is it needed, is it worth the time, will someone run it), then designs architecture-first with SOLID, open/closed and Unix philosophy. Design only.",
       "keywords": [
         "ai-slop",
         "software-architecture",

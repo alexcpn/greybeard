@@ -1,10 +1,10 @@
 # greybeard
 
-> No more AI slop. An architect skill for coding agents. Before any code is written it decides whether the system should be built at all (warns and stops if it would become AI slop or cost more to run than it is worth), then designs the whole architecture first and fits every user story into it: SOLID, open/closed extension points, Unix philosophy, right-sized, with a committed decision record. Design only; it writes no implementation code.
+> No more AI slop. An architect skill for coding agents. Before any code is written the idea must pass three gates: is it needed, is it worth the time, will someone run it. It warns and stops if one fails. Then it designs the whole architecture first and fits every user story into it: SOLID, open/closed extension points, Unix philosophy, right-sized, with a committed decision record. Design only; it writes no implementation code.
 
 ## Skill
 
-- [SKILL.md](https://raw.githubusercontent.com/alexcpn/greybeard/main/skills/greybeard/SKILL.md): the method (viability gate, constraints, sizing, architecture first, right-sizing, self-review, deliverables)
+- [SKILL.md](https://raw.githubusercontent.com/alexcpn/greybeard/main/skills/greybeard/SKILL.md): the method (three gates, constraints, sizing, architecture first, right-sizing, self-review, deliverables)
 - [checklist.md](https://raw.githubusercontent.com/alexcpn/greybeard/main/skills/greybeard/references/checklist.md): self-review checklist
 - [decision-record.md](https://raw.githubusercontent.com/alexcpn/greybeard/main/skills/greybeard/references/decision-record.md): decisions.json format
 

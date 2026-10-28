@@ -5,7 +5,7 @@ three rounds and eight models. The items marked **(common miss)** were where mod
 lost points. Answer each with a pointer into `design.md`; a "no" means fix the design.
 
 ## Viability
-- [ ] Phase 0 verdict stated, with the production bill and owner named.
+- [ ] All three gates answered (needed, worth the time, someone runs it); verdict stated, with the production bill and owner named.
 - [ ] Build-vs-reuse considered; reasons for building are specific.
 - [ ] The cost table in `viability.md` is filled in for build and for the best reuse option.
 - [ ] For infrastructure mature products already provide, the verdict names the requirement no existing option meets, or it is STOP / GO, NARROWED.
