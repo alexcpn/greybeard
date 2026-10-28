@@ -34,10 +34,15 @@ it. Agents forget prose; they cannot ignore a failing check.
 ## Install
 
 ```
-npx skills add alexcpn/greybeard        # any agent; -g for global
+npx skills add alexcpn/greybeard -g -a claude-code    # Claude Code (~/.claude/skills)
+npx skills add alexcpn/greybeard -g -a codex -a opencode   # other agents
 ```
 
-Claude Code: `/plugin marketplace add alexcpn/greybeard`, then `/plugin install greybeard@greybeard`.
+Pick the agents with `-a`: without it, the installer may put the skill only in the shared
+`~/.agents/skills` folder, which Claude Code does not read. Drop `-g` to install for the current
+project only.
+
+Or, as a Claude Code plugin: `/plugin marketplace add alexcpn/greybeard`, then `/plugin install greybeard@greybeard`.
 Without Node: copy `skills/greybeard/` into your agent's skills folder.
 
 Then ask: *"Design a system for ..."* or *"Should we build ...?"*
