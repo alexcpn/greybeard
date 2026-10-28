@@ -57,9 +57,9 @@ failures, and the middle score counts. Scores are out of 100.
 | Small-model coding agent ([Fox](https://github.com/alexcpn/fox)) | GPT-6.1 Sol | 73.8 | 84.3 | +14% |
 
 These results are interim (v0.2, one run each, cut short by usage limits), so they show a
-direction, not proof. The skill avoided some of the real systems' bugs and never stopped a valid brief. It also made
-models drop mechanisms their own numbers called for, in the name of "don't over-engineer". v0.3
-fixes that.
+direction, not proof. The skill avoided some of the real systems' bugs and never stopped a
+valid brief. It also made models drop mechanisms their own numbers called for, in the name of
+"don't over-engineer". v0.3 fixes that.
 
 ## License
 
