@@ -78,12 +78,66 @@ cp -r /tmp/greybeard/skills/greybeard ~/.claude/skills/    # or .agents/skills/,
 
 Then ask: *"Design a system for ..."*, *"Should we build ...?"*, or *"Review this architecture"*.
 
+## How it was tested (with vs without, v0.2)
+
+**Method.** Each task is a design brief built from a real system that had already been built
+and run: it states facts (hardware, load, team, user stories) but not decisions. A hidden
+reference design and that system's known production weaknesses (from its backlog and fix
+commits) define a levelled rubric: 9 weighted dimensions, each scored 0-4. Level 4 means the
+design avoids the known weakness, not just names the topic. A second turn sends a change
+request taken from a real incident (for example, a restart that lost build history), and the
+diff is graded on whether the design absorbs it without rework. Penalties apply for
+over-building and for inconsistent decisions. Three judges from different vendors (Claude, GPT,
+Gemini) grade blind to the condition, and the score is the median. A pair is compared only on
+judges that scored both sides.
+
+**Tasks:**
+- `ci`: agent-heavy CI for 15 repos on 5 VMs with 2 engineers, from
+  [Relay CI](https://github.com/alexcpn/relay-ci). The skill's Relay CI paragraph was removed for
+  this task.
+- `finagent`: an LLM portfolio research agent with a per-run cost and time budget.
+- `smallagent`: a terminal coding agent for 8-27B local models on a 16 GB GPU, from
+  [Fox](https://github.com/alexcpn/fox).
+- A fourth, proprietary task, not reported here.
+
+**Subjects:** Claude Opus 5.5, GPT-6.1 Sol and DeepSeek V4.1 Flash, one run per condition.
+
+**Interim results, three public tasks.** Usage limits stopped the round early; empty pairs were
+not run or not judged.
+
+| Task | Model | Without | With | Δ | Δ per judge (Claude / GPT / Gemini) |
+|---|---|---|---|---|---|
+| ci | Claude Opus 5.5 | 77.9 | 76.7 | -1.2 | +6.1 / -8.5 / - |
+| ci | GPT-6.1 Sol | 92.0 | 94.0 | +2.0 | +2.0 / +6.9 / +6.0 |
+| ci | DeepSeek V4.1 Flash | 94.2 | 93.3 | -0.9 | -0.9 / +1.2 / -2.7 |
+| finagent | GPT-6.1 Sol | 94.5 | 92.0 | -2.5 | -2.5 / -9.4 / -8.0 |
+| smallagent | GPT-6.1 Sol | 73.8 | 84.3 | +10.5 | +7.3 / +13.6 / - |
+
+**What it showed:**
+- **The gate did not cry wolf.** Every run with the skill returned "GO, NARROWED" on these
+  legitimate briefs. On `ci`, GPT with the skill kept the existing CI and added a small
+  agent-facing layer instead of building a new one.
+- **The targeted weaknesses moved.** With the skill, GPT on `smallagent` keyed its file cache on
+  file state in the first turn; that was the real system's bug.
+- **It also cost detail.** "Don't over-engineer" led models to reject mechanisms their own
+  numbers called for (cache tiers, cheap pruning before expensive work, input caps, stronger
+  isolation). They also stayed vague on retry idempotency and on silent-failure paths, and the
+  GPT designs grew up to 3x longer.
+- **Noise.** With one run per condition, ±5 points is within run-to-run noise, and the judges
+  sometimes disagree on direction. This shows direction, not proof. The Gemini judge also
+  scored near the ceiling, so the rubrics need harder level-4 descriptors.
+
+v0.3 is the response. It keeps the gate, build-vs-reuse and the cache-key rule. It adds "simple
+infrastructure, not a simple hot path", per-component budgets, per-operation retry, failure and
+trust semantics, and a limit on document length. Because v0.3 was tuned on these judges'
+notes, re-running these tasks would overstate it; the next test needs held-out tasks.
+
 ## Status
 
-v0.1. The rules come from design mistakes seen repeatedly in AI-generated architectures and from
-building a distributed CI system ([Relay CI](https://github.com/alexcpn/relay-ci)) with an agent.
-The skill itself has not yet been benchmarked with and without; treat it as a well-founded
-checklist, not a proven improvement. Issues and counter-examples welcome.
+v0.3. The rules come from design mistakes seen repeatedly in AI-generated architectures and from
+building a distributed CI system ([Relay CI](https://github.com/alexcpn/relay-ci)) with an agent,
+revised after the trial above. Treat it as a well-founded checklist, not a proven improvement.
+Issues and counter-examples welcome.
 
 ## License
 

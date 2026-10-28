@@ -1,7 +1,7 @@
 {
   "name": "greybeard",
   "description": "No more AI slop. Architect skill for coding agents (Claude Code, Codex, opencode): decides if it should be built at all, then designs architecture-first with SOLID, open/closed and Unix philosophy. Design only.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Alex Punnen"
   },
