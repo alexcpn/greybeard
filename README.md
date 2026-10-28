@@ -28,7 +28,8 @@ CLI, any agent that reads `SKILL.md`). It works before the code:
 4. **Right-sized.** It keeps the infrastructure simple but not the hot path. POCs become products.
 
 **Design only.** Its output is a verdict, `design.md`, `decisions.json` and an `ARCHITECTURE.md`
-that tells coding agents what the rules are and why.
+that gives coding agents the rules, why each one exists, and the automated check that enforces
+it. Agents forget prose; they cannot ignore a failing check.
 
 ## Install
 
@@ -60,6 +61,11 @@ These results are interim (v0.2, one run each, cut short by usage limits), so th
 direction, not proof. The skill avoided some of the real systems' bugs and never stopped a
 valid brief. It also made models drop mechanisms their own numbers called for, in the name of
 "don't over-engineer". v0.3 fixes that.
+
+**Does it say no when it should?** In seven short briefs (four where mature software already
+covers the need, three where it does not), Claude and GPT got every one right, with or without
+the skill. The briefs were too easy to show what the gate adds. The skill also still made designs
+longer. Details, tasks and how to run them are in [`eval/`](eval/).
 
 ## License
 

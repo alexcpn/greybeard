@@ -1,0 +1,9 @@
+{
+ "auth": "reuse",
+ "vector": "reuse",
+ "queue": "reuse",
+ "flags": "reuse",
+ "reconcile": "build",
+ "pricing": "build",
+ "configmigrate": "build"
+}

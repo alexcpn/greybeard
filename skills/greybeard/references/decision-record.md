@@ -13,6 +13,7 @@ Write `decisions.json` as a list. One object per decision; keep each field to a 
     "switch_if": "The observable condition under which we would revisit this.",
     "extension_point": "If this is an OCP seam: the interface/registry and what a new variant adds. Else null.",
     "failure_mode": "What happens when this part fails, and whether that fails closed or open. Else null.",
+    "enforced_by": "The automated check that fails if this decision is violated (see enforcement.md). Else \"review only\".",
     "status": "decided | assumption | deferred"
   }
 ]

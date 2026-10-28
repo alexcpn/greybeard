@@ -1,0 +1,30 @@
+{
+  "system": "smallagent",
+  "scale": "0 absent, 1 mentioned without mechanism or uncommitted, 2 works but generic, 3 matches the reference architect's decision for the right reason, 4 also avoids the named known weakness",
+  "dimensions": [
+    {"id": "D1", "name": "Framing around small-model limits", "weight": 10,
+     "levels": {"2": "Acknowledges small models are weaker", "3": "Maps each observed behaviour (loops, invented files, lost track, malformed calls, false success, short plans, inline literals) to a specific countermeasure and sizes the token budget from context and tokens/s", "4": "Also states which behaviours it does not attempt to fix and why"}},
+    {"id": "D2", "name": "Control loop and failure detection", "weight": 14,
+     "levels": {"2": "A loop with a max-iterations cap", "3": "Explicit task state machine with validated, logged transitions; repeated-call loop detection; turn limits; malformed tool-call recovery", "4": "Also failure propagation: a parent task fails (not silently completes) when its subtasks mostly fail"}},
+    {"id": "D3", "name": "Context management", "weight": 16,
+     "levels": {"2": "Truncation or summarisation", "3": "Tiered retention of tool results (recent full, older truncated, oldest one-line), full results stored outside the prompt and re-queryable, compact system prompt, sliding window", "4": "Also the window evicts whole assistant tool_call + tool result groups so the message list stays valid for strict providers, in the turn-1 design"}},
+    {"id": "D4", "name": "Planning and decomposition", "weight": 12,
+     "levels": {"2": "Breaks tasks into steps", "3": "Plan first with a small step cap (2-4), structural plan validation with re-plan, isolated minimal context per subtask, results passed via files or IDs, explicit input paths to prevent invented names", "4": "Also structured/constrained output for the plan and routing on plan length rather than input size"}},
+    {"id": "D5", "name": "Tool layer and cache correctness", "weight": 12,
+     "levels": {"2": "Tools as functions", "3": "Tools as commands behind a registry (open/closed), read-only results cached, writes always executed, guards for known misuse (binary as text, inline literals)", "4": "Cache key includes file state (content hash or mtime+size) or the cache is invalidated on any write, in the turn-1 design"}},
+    {"id": "D6", "name": "Outcome verification", "weight": 12,
+     "levels": {"2": "Asks the model if it succeeded", "3": "Success criteria extracted up front and checked against real outputs (files exist, created in this task, parse/validate), failure reported honestly, one retry with the failure reason", "4": "Also distinguishes files created by this task from pre-existing ones and validates binary formats by opening them"}},
+    {"id": "D7", "name": "Persistence and learning", "weight": 10,
+     "levels": {"2": "Logs to files", "3": "Embedded DB (sessions, tasks, transitions, tool calls) serving both history inspection and the cache; past successful task chains retrieved (lightweight retrieval) as hints", "4": "Also does not silently lose history when the store is unavailable (locking strategy or explicit warning)"}},
+    {"id": "D8", "name": "Provider abstraction and extensibility", "weight": 8,
+     "levels": {"2": "Configurable endpoint", "3": "One chat interface over local and hosted backends with per-provider message serialisation; new tools added by registering a command without loop changes", "4": "Also validates outgoing message lists against provider rules before sending"}},
+    {"id": "D9", "name": "Right-sizing", "weight": 6,
+     "levels": {"2": "Few dependencies", "3": "Single process, minimal dependencies, embedded storage; no services", "4": "Explicitly rejects heavier options (vector DB, agent frameworks, servers) with reasons"}}
+  ],
+  "followup": {"id": "F1", "max_level": 4, "weight": 10,
+    "levels": {"1": "Acknowledges", "2": "Fixes one of the two", "3": "Both: evict/keep tool_call and tool result as an atomic group plus provider-specific serialisation/validation before send; cache keyed on file content hash or mtime+size and invalidated by the agent's own writes", "4": "Also adds regression tests or a validator for message sequences and covers user edits between tasks (re-stat on read), updating earlier sections consistently"}},
+  "penalties": [
+    {"id": "P1", "points": 3, "name": "Unjustified heavy infrastructure (vector DB server, agent framework stack, microservices) for a single-process laptop tool"},
+    {"id": "P2", "points": 2, "name": "Relies on the model's own claim of success as the completion signal"}
+  ]
+}

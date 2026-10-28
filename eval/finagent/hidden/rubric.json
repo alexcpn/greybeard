@@ -1,0 +1,31 @@
+{
+  "system": "finagent",
+  "scale": "0 absent, 1 mentioned without mechanism or uncommitted, 2 works but generic, 3 matches the reference architect's decision for the right reason, 4 also avoids the named known weakness",
+  "dimensions": [
+    {"id": "D1", "name": "Scope and right-sizing", "weight": 10,
+     "levels": {"2": "Reasonable scope", "3": "Single-process Python app proportionate to one developer and a laptop; cost and time budget per run derived and enforced", "4": "Also keeps observability/storage infrastructure minimal (no multi-service stack) while meeting story 8"}},
+    {"id": "D2", "name": "Orchestration and agent decomposition", "weight": 14,
+     "levels": {"2": "Some agents and tools", "3": "Deterministic code for CSV validation, arithmetic, snapshot and target selection; bounded specialist agents with per-agent tool/request budgets; synthesis step separated from tool use", "4": "Also clean module boundaries (orchestrator, specialists, tools, contracts) rather than one agent module, and a degraded mode for weak/local models"}},
+    {"id": "D3", "name": "Evidence, citations and research cache", "weight": 14,
+     "levels": {"2": "Caches research", "3": "Retains original documents with hashes and provenance; extracted text; structured cited findings; citations validated against stored source IDs in code", "4": "Also refreshes by source change (filing date/hash/ETag) rather than age alone, and versions the snapshot each view used"}},
+    {"id": "D4", "name": "Output contract and safety guardrails", "weight": 12,
+     "levels": {"2": "Prompt says no advice", "3": "Structured, closed-vocabulary research view (e.g. Add/Hold/Exit + confidence + positive and risk citations); code-level guard against advice-shaped output; CSV fields treated as untrusted (prompt injection)", "4": "Also human-owned, versioned analysis lens that the model must test against its anti-thesis and cannot amend"}},
+    {"id": "D5", "name": "Evaluation and regression", "weight": 16,
+     "levels": {"2": "Some tests or an LLM judge", "3": "Prompt, model and eval policy versioned together; repeated live evals for non-determinism; deterministic checks plus LLM judge; usable as a CI gate", "4": "Also regression over stored traces without new model/search spend, and the judge model/rubric versioned"}},
+    {"id": "D6", "name": "Cost and rate-limit control", "weight": 10,
+     "levels": {"2": "Mentions cost", "3": "Per-run budget arithmetic (calls, tokens) vs US$2 and 60 calls/min; usage limits per agent; caching to avoid repeat paid calls", "4": "Also aggregates usage across stages and stops/degrades when the budget is reached"}},
+    {"id": "D7", "name": "Observability and traceability", "weight": 10,
+     "levels": {"2": "Logging", "3": "Per-run trace of tool calls, results, tokens, cost and failures (e.g. OpenTelemetry), linked to the report", "4": "Also retention defined and traces reusable as eval input"}},
+    {"id": "D8", "name": "Extensibility and provider independence", "weight": 8,
+     "levels": {"2": "Says swappable", "3": "Model provider switch by configuration; data providers behind an interface (MCP or adapter); new specialist or lens added without editing the orchestrator core", "4": "Extension points only on named axes (provider, market, specialist, lens)"}},
+    {"id": "D9", "name": "Outcome tracking", "weight": 6,
+     "levels": {"2": "Stores past reports", "3": "Append-only ledger of views with horizon and resolution date computed in code; later graded against actual price moves", "4": "Also materiality band / benchmark-relative grading"}}
+  ],
+  "followup": {"id": "F1", "max_level": 4, "weight": 10,
+    "levels": {"1": "Acknowledges", "2": "Adds market or provider or versioning, not all", "3": "Provider adapter for the second vendor with a normalised data model, market as configuration (exchange, currency, calendar), and every view stores prompt version, model, lens version and evidence snapshot IDs/hashes", "4": "Also updates evals, cache and ledger consistently and makes past views replayable from stored traces/snapshots"}},
+  "penalties": [
+    {"id": "P1", "points": 3, "name": "Unjustified heavy infrastructure (Kubernetes, message bus, microservices, multi-service observability stack) for one developer on a laptop"},
+    {"id": "P2", "points": 3, "name": "LLM performs arithmetic, CSV parsing or orchestration that the design could do deterministically, without justification"},
+    {"id": "P3", "points": 2, "name": "Output can contain price targets/position sizing with no code-level guard"}
+  ]
+}

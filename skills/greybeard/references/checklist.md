@@ -7,6 +7,8 @@ lost points. Answer each with a pointer into `design.md`; a "no" means fix the d
 ## Viability
 - [ ] Phase 0 verdict stated, with the production bill and owner named.
 - [ ] Build-vs-reuse considered; reasons for building are specific.
+- [ ] The cost table in `viability.md` is filled in for build and for the best reuse option.
+- [ ] For infrastructure mature products already provide, the verdict names the requirement no existing option meets, or it is STOP / GO, NARROWED.
 
 ## Workload and bottleneck
 - [ ] Peak load, per-request budget (CPU-seconds, I/O, memory) computed from stated numbers.
@@ -71,3 +73,4 @@ lost points. Answer each with a pointer into `design.md`; a "no" means fix the d
 - [ ] Decisions committed, not hedged; each has rationale and a "switch if" condition.
 - [ ] No two decisions contradict each other.
 - [ ] `ARCHITECTURE.md` rules carry their why.
+- [ ] The 3-7 most important rules each name an automated check (`enforcement.md`); the rest say "review only".

@@ -1,0 +1,31 @@
+{
+  "system": "ci",
+  "scale": "0 absent, 1 mentioned without mechanism or uncommitted, 2 works but generic, 3 matches the reference architect's decision for the right reason, 4 also avoids the named known weakness",
+  "dimensions": [
+    {"id": "D1", "name": "Scope, build-vs-reuse and non-goals", "weight": 12,
+     "levels": {"2": "Builds or adopts something with some rationale", "3": "Argues build/extend/adopt from the facts (Jenkins plugin debt, one part-time maintainer, agent needs, 2 engineers / 3 months) and states explicit non-goals that keep it small", "4": "Also states the production bill (durable state, identity/auth, retention, upgrades, on-call) as part of the go/no-go and scopes the first release to it"}},
+    {"id": "D2", "name": "Workload sizing and capacity", "weight": 8,
+     "levels": {"2": "Some numbers", "3": "Derives concurrent task slots and peak demand from 80 builds/h x 8-15 tasks x minutes vs 4x16 vCPU, accounts for agent retry multiplier and cache sizes on 500 GB disks", "4": "Also sets admission control / per-identity limits from that arithmetic"}},
+    {"id": "D3", "name": "Decomposition and contracts", "weight": 12,
+     "levels": {"2": "Control plane and workers", "3": "Control plane (webhooks, pipeline parsing, DAG, scheduling, state) separated from workers; one contract style; agent interface (API/MCP) as a client of the same API; domain separated from infrastructure", "4": "Also avoids a single in-memory master as source of truth (state store owned by one component)"}},
+    {"id": "D4", "name": "Execution model: DAG, scheduling, workspace and caches", "weight": 14,
+     "levels": {"2": "Parallel tasks in containers", "3": "Pipeline as code in repo, DAG with depends_on, cycle detection, skip cascade; resource-aware scheduling; shared per-build workspace; persistent dependency caches across builds", "4": "Also handles cache eviction/TTL and pipeline-level timeouts or label-based routing"}},
+    {"id": "D5", "name": "Durability and failure recovery", "weight": 14,
+     "levels": {"2": "Heartbeats or retries mentioned", "3": "Worker heartbeats, task timeouts, idempotent task execution and retry semantics defined", "4": "Build state persisted (survives control-plane restart) and tasks on dead workers reassigned automatically, in the turn-1 design"}},
+    {"id": "D6", "name": "Agent interface", "weight": 12,
+     "levels": {"2": "An API agents can call", "3": "Agent-facing tools for submit/watch/logs/structured failure diagnosis/retry-failed-only, paginated logs", "4": "Also structured failure events (not regex over text), per-task re-run reusing unchanged upstream outputs, or a cost/budget stop signal for agent loops"}},
+    {"id": "D7", "name": "Security and identity", "weight": 12,
+     "levels": {"2": "Secrets store", "3": "HMAC webhook verification, secrets injected at runtime and scrubbed from logs and agent output, mTLS/auth between components", "4": "Also per-human/per-agent identity with audit, and stronger-than-Docker isolation for untrusted agent code"}},
+    {"id": "D8", "name": "Extensibility (open/closed)", "weight": 8,
+     "levels": {"2": "Says it is extensible", "3": "Integrations (linters/scanners/review) added via a registry/plugin into the DAG without scheduler changes; SCM providers and container runtime behind interfaces", "4": "Also keeps extension points to the named axes only (no plugin marketplace)"}},
+    {"id": "D9", "name": "Operability", "weight": 8,
+     "levels": {"2": "Metrics or logs", "3": "Metrics for builds/queue/workers incl. agent share; structured logs; worker draining", "4": "Also log/build retention, graceful upgrade, backup/restore"}}
+  ],
+  "followup": {"id": "F1", "max_level": 4, "weight": 10,
+    "levels": {"1": "Acknowledges", "2": "Adds persistence or reassignment or identity, not all", "3": "All three: durable state store as source of truth with recovery of in-flight builds, automatic reassignment with idempotent re-execution, per-identity tokens with attribution and quotas", "4": "Also updates the affected earlier sections consistently (scheduler, API, audit, agent loop budget) and names what the change costs"}},
+  "penalties": [
+    {"id": "P1", "points": 3, "name": "Unjustified heavy infrastructure (Kubernetes, service mesh, message bus, microservices per component) for 5 VMs and 2 engineers"},
+    {"id": "P2", "points": 3, "name": "Plans Jenkins feature parity (plugin ecosystem, rich UI, multi-platform) within the stated team and timeline"},
+    {"id": "P3", "points": 2, "name": "Secrets visible to untrusted pipeline code or agent output without mitigation"}
+  ]
+}
