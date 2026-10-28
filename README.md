@@ -1,27 +1,24 @@
 # greybeard: NO MORE AI SLOP
 
 ```
-                 .-""""""-.
-               .'  _    _  '.
-              /   (o)  (o)   \        "Before we build it...
-             |   .-""""""-.   |        who is going to run it?"
-             |  /  ~~~~~~  \  |
-              \|  ~~~~~~~~  |/
-               \ ~~~~~~~~~~ /
-               /~~~~~~~~~~~~\
-              /~~~~~~~~~~~~~~\
-              \~~~~~~~~~~~~~~/
-               \~~~~~~~~~~~~/
-                '~~~~~~~~~~'
-                  '~~~~~~'
+         .-''''''''-.
+       .'  ,,    ,,  '.      "Before we build it,
+      /   (o_)--(o_)   \      who is going to run it?"
+     |        /\        |
+     |  .~~~~~~~~~~~~.  |
+      \/~~~~~~~~~~~~~~\/     Three gates before any code:
+       |~~~~~~~~~~~~~~|
+       |~~~~~~~~~~~~~~|        1. Is it needed?
+        \~~~~~~~~~~~~/         2. Is it worth the time?
+         \~~~~~~~~~~/          3. Will someone run it?
+          \~~~~~~~~/
+           \~~~~~~/          Fail one, and greybeard says STOP.
+            '~~~~'
 ```
 
 Coding agents made code nearly free. The new failure is a system nobody can run, extend or
 trust. Greybeard is an architect skill for coding agents (Claude Code, Codex, opencode, Gemini
 CLI, any agent that reads `SKILL.md`). It works before the code:
-
-![Before you build it, pass three gates: Is it needed? Is it worth the time? Will someone run it?](docs/three-gates.png)
-
 
 1. **Three gates before any code.** Is it needed? Is it worth the time? Will someone run it?
    Fail one and it warns you and stops.
