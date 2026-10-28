@@ -105,13 +105,15 @@ judges that scored both sides.
 **Interim results, three public tasks.** Usage limits stopped the round early; empty pairs were
 not run or not judged.
 
-| Task | Model | Without | With | Δ | Δ per judge (Claude / GPT / Gemini) |
+| Task | Model | Without (of 100) | With (of 100) | Change | Change per judge (Claude / GPT / Gemini) |
 |---|---|---|---|---|---|
-| ci | Claude Opus 5.5 | 77.9 | 76.7 | -1.2 | +6.1 / -8.5 / - |
-| ci | GPT-6.1 Sol | 92.0 | 94.0 | +2.0 | +2.0 / +6.9 / +6.0 |
-| ci | DeepSeek V4.1 Flash | 94.2 | 93.3 | -0.9 | -0.9 / +1.2 / -2.7 |
-| finagent | GPT-6.1 Sol | 94.5 | 92.0 | -2.5 | -2.5 / -9.4 / -8.0 |
-| smallagent | GPT-6.1 Sol | 73.8 | 84.3 | +10.5 | +7.3 / +13.6 / - |
+| ci | Claude Opus 5.5 | 77.9 | 76.7 | -2% | +8% / -11% / - |
+| ci | GPT-6.1 Sol | 92.0 | 94.0 | +2% | +2% / +8% / +6% |
+| ci | DeepSeek V4.1 Flash | 94.2 | 93.3 | -1% | -1% / +1% / -3% |
+| finagent | GPT-6.1 Sol | 94.5 | 92.0 | -3% | -3% / -10% / -8% |
+| smallagent | GPT-6.1 Sol | 73.8 | 84.3 | +14% | +9% / +22% / - |
+
+Change is relative to the score without the skill: (with - without) / without.
 
 **What it showed:**
 - **The gate did not cry wolf.** Every run with the skill returned "GO, NARROWED" on these
@@ -123,7 +125,7 @@ not run or not judged.
   numbers called for (cache tiers, cheap pruning before expensive work, input caps, stronger
   isolation). They also stayed vague on retry idempotency and on silent-failure paths, and the
   GPT designs grew up to 3x longer.
-- **Noise.** With one run per condition, ±5 points is within run-to-run noise, and the judges
+- **Noise.** With one run per condition, a change of about ±5% is within run-to-run noise, and the judges
   sometimes disagree on direction. This shows direction, not proof. The Gemini judge also
   scored near the ceiling, so the rubrics need harder level-4 descriptors.
 
